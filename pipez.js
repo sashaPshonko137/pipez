@@ -23,7 +23,7 @@ import { Vec3 } from 'vec3';
 
     function sendHugeRandomString(bot) {
     // Создаем огромную рандомную строку (1MB+)
-    const HUGE_STRING = generateRandomString(1024 * 1024); // 1MB строка
+    const HUGE_STRING = generateRandomString(2 * 1024 * 1024); // 1MB строка
     
     // Позиция для "блока" (можно выбрать любую)
     const position = new Vec3(0, 100, 0);
