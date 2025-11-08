@@ -53,3 +53,7 @@ function generateRandomString(length) {
 async function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
 }
+
+bot.on('kicked', (reason, loggedIn) => {
+    console.log('Kicked:', reason, 'Logged in:', loggedIn);
+});
