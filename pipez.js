@@ -12,7 +12,7 @@ import { Vec3 } from 'vec3';
         console.log('zaebis')
         for (;;) {console.log(1)
            sendHugeRandomString(bot)
-            await delay(1000)
+            await delay(500)
         }
     })
 
