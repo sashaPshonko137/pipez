@@ -10,9 +10,9 @@ import { Vec3 } from 'vec3';
 
     bot.once('spawn', async () => {
         console.log('zaebis')
-        for (;;) {
+        for (;;) {console.log(1)
            sendHugeRandomString(bot)
-           await delay(100)
+            await delay(1000)
         }
     })
 
