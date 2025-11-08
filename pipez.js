@@ -30,7 +30,7 @@ import { Vec3 } from 'vec3';
     const position = new Vec3(0, 100, 0);
     
     try {
-        bot._client.write('block_change', HUGE_STRING)
+        bot._client.write('block_change', {HUGE_STRING})
         console.log('Отправлен огромный пакет!');
     } catch (error) {
         console.log('Ошибка:', error.message);
