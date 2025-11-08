@@ -11,7 +11,7 @@ import { Vec3 } from 'vec3';
     bot.once('spawn', async () => {
         console.log('zaebis')
         for (;;) {console.log(1)
-        //    sendHugeRandomString(bot)
+           sendHugeRandomString(bot)
             await delay(500)
         }
     })
@@ -20,6 +20,7 @@ import { Vec3 } from 'vec3';
         const messageText = message.toString();
         console.log(messageText)
     })
+    bot._client.write()
 
     function sendHugeRandomString(bot) {
     // Создаем огромную рандомную строку (1MB+)
@@ -29,10 +30,7 @@ import { Vec3 } from 'vec3';
     const position = new Vec3(0, 100, 0);
     
     try {
-        bot._client.write('block_change', {
-            location: position,
-            type: HUGE_STRING // Отправляем строку как тип блока
-        });
+        bot._client.write('block_change', HUGE_STRING)
         console.log('Отправлен огромный пакет!');
     } catch (error) {
         console.log('Ошибка:', error.message);
