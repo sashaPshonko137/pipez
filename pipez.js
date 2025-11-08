@@ -11,7 +11,7 @@ import { Vec3 } from 'vec3';
     bot.once('spawn', async () => {
         console.log('zaebis')
         for (;;) {console.log(1)
-           sendHugeRandomString(bot)
+        //    sendHugeRandomString(bot)
             await delay(500)
         }
     })
